@@ -98,6 +98,8 @@ mando@DESKTOP-0V8P6MM MINGW64 ~/Projects/unfoldingWord/book-package-app (master)
 $
 ```
 
+To run, `cd electron` and `npm run electron:start`
+
 ## Demos
 
 I completed the getting started demo using the sample "tabs" app.
