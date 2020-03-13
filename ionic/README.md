@@ -82,7 +82,7 @@ This created a JSON config:
 }
 ```
 
-Note: I had to change the webDir value to public (the folder with the index.html file).
+Note: I had to change the webDir value to `build`.
 
 Then I added the Electron target platform:
 ```
@@ -99,9 +99,15 @@ mando@DESKTOP-0V8P6MM MINGW64 ~/Projects/unfoldingWord/book-package-app (master)
 $
 ```
 
-To run, `cd electron` and `npm run electron:start`
+Note 1: everytime a change is made to the app, you have to copy the `build` folder to the platform folders.
+Thus: `npx cap copy`
 
-Or `npx cap open`
+Note 2: everytime the electron folder is updated from `build`, you have to correct the `index.html` file.
+This file is located in `./electron/app/index.html`. All the assets are given as web URLs with a `book-package-app` base.
+For example: `/book-package-app/favicon.ico`. All such references, must be changed to simply ".".
+Thus the aforementioned becomes: `./favicon.ico`.
+
+To run,  `npx cap open electron`
 
 
 ### Starting with "new" Ionic Web App
