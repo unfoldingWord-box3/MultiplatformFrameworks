@@ -1,0 +1,8 @@
+{
+  "appId": "com.example.app",
+  "appName": "tabs",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "build",
+  "cordova": {}
+}

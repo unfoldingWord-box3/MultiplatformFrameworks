@@ -81,6 +81,7 @@ This created a JSON config:
   "cordova": {}
 }
 ```
+
 Note: I had to change the webDir value to public (the folder with the index.html file).
 
 Then I added the Electron target platform:
@@ -99,6 +100,27 @@ $
 ```
 
 To run, `cd electron` and `npm run electron:start`
+
+Or `npx cap open`
+
+
+### Starting with "new" Ionic Web App
+
+Using the `tabs` demo app...
+
+from https://capacitor.ionicframework.com/docs/getting-started/with-ionic:
+- created app with `ionic start myApp tabs --capacitor`
+- verified working with `ionic serve`
+- did a build with `ionic build`
+- initialized capacitor with `npx cap init myApp org.unfoldingword.myApp`
+  - used npm client
+- changed webDir value in capacitor.config.json to `build`
+- added "electron" as a target platform with `npx cap add electron`
+- ionic build has some omissions that must be fixed by hand:
+  - in `electron/app/index.html`, remove the `<base href="/" />` tag
+  - in `electron/package.json`, add a property `"homepage": "."`
+- started electron client with `npx cap open electron`
+
 
 ## Demos
 

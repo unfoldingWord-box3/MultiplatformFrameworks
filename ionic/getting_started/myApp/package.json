@@ -1,5 +1,5 @@
 {
-  "name": "tabs",
+  "name": "myApp",
   "version": "0.0.1",
   "private": true,
   "dependencies": {
@@ -44,8 +44,8 @@
       "last 1 safari version"
     ]
   },
-  "description": "An Ionic project",
   "devDependencies": {
     "@capacitor/cli": "1.5.1"
-  }
+  },
+  "description": "An Ionic project"
 }
