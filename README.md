@@ -1,5 +1,10 @@
 # Multiplatform Frameworks
-This is a research project to evaluate multi-platform frameworks
+This is a research project to evaluate multi-platform frameworks.
+
+*Update 2020-03-16* I started the evaluation with the latest tooling, namely, Ionic. As it turns out, their `capacitor` tool works really well and is even somewhat backward compatible with `cordova`. Thus the evaluation was shortened to only study Ionic's Capacitor. As of this writing, the following has been lightly tested:
+- Win10, amd64
+- Linux, amd64
+
 
 ## Requirements
 
@@ -24,15 +29,10 @@ The following features will distinguish one framework from another:
 - Enables work offline and sync when back online
 - Can use `yarn`
 
-## List of Frameworks Evaluated
+## [Original] List of Frameworks Evaluated
 
 This is the initial list of frameworks to evaluate:
 
 - [Cordova](https://cordova.apache.org/)
 - [React Native](https://reactnative.dev/)
 - [Ionic](https://ionicframework.com/blog/announcing-ionic-react/)
-
-There will be folders with the framework name where all the material for each is housed.
-Each product folder will have a `README` with notes, questions, issues, and (importantly) a summary of the evaluation.
-
-This `README` will have a summary comparing the products and making recommendations.

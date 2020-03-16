@@ -21,10 +21,14 @@ From the docs:
 ## Capacitor
 
 To add to an existing web app:
+- via NPM:
 ```
 cd my-app
 npm install --save @capacitor/core @capacitor/cli
-# yarn add @capacitor/core @capacitor/cli
+```
+- via yarn:
+```
+yarn add @capacitor/core @capacitor/cli
 ```
 
 I'll use my book-package-app for this.
@@ -84,6 +88,8 @@ This created a JSON config:
 
 Note: I had to change the webDir value to `build`.
 
+Also, review the `package.json` that is created. Be sure the `name` property has the right application name and description.
+
 Then I added the Electron target platform:
 ```
 $ npx cap add electron
@@ -107,7 +113,67 @@ This file is located in `./electron/app/index.html`. All the assets are given as
 For example: `/book-package-app/favicon.ico`. All such references, must be changed to simply ".".
 Thus the aforementioned becomes: `./favicon.ico`.
 
-To run,  `npx cap open electron`
+To run,  `npx cap open electron`. 
+
+
+### Packaging the App
+
+- began by installing electron globally (as opposed to a dev dependency within the app)
+`npm install electron -g`
+- To verify:
+```
+$ electron --version
+
+v8.1.1
+$
+```
+
+Then I was able run by:
+```
+$ cd book-package-app
+$ cd electron
+$ electron .
+```
+
+Next, install something called the "electron-packager". This will create a ".exe" for Windows or an appropriate executable for other platforms. Install globally, otherwise the command will be buried somewhere and will not be on your path.
+```
+$ npm install electron-packager -g
+$ electron-packager --version
+Electron Packager 14.2.1
+Node v10.16.3
+Host Operating system: win32 10.0.18362 (x64)
+$ 
+```
+- Next package the app:
+```
+$ pwd
+/c/Users/mando/Projects/unfoldingWord/book-package-app/electron
+$ electron-packager .
+Packaging app for platform win32 x64 using electron v7.1.14
+Wrote new app to C:\Users\mando\Projects\unfoldingWord\book-package-app\electron\capacitor-app-win32-x64
+$ electron-packager .
+Packaging app for platform win32 x64 using electron v7.1.14
+Wrote new app to C:\Users\mando\Projects\unfoldingWord\book-package-app\electron\book-package-app-win32-x64
+$ 
+```
+- This creates a folder named (by default): `book-package-app-win32-x64`. Inside this folder will be a Windows executable:
+`book-package-app.exe`.
+- NOTE: the icon for the app is the react icon... how can I change this to be the unfoldingWord icon?
+- You can use the "all" option to generate executables for all supported platforms!
+```
+$ electron-packager . --all
+... elided ...
+Wrote new apps to:
+C:\Users\mando\Projects\unfoldingWord\book-package-app\electron\book-package-app-linux-ia32
+C:\Users\mando\Projects\unfoldingWord\book-package-app\electron\book-package-app-win32-ia32
+C:\Users\mando\Projects\unfoldingWord\book-package-app\electron\book-package-app-linux-x64
+true
+C:\Users\mando\Projects\unfoldingWord\book-package-app\electron\book-package-app-linux-armv7l
+C:\Users\mando\Projects\unfoldingWord\book-package-app\electron\book-package-app-linux-arm64
+C:\Users\mando\Projects\unfoldingWord\book-package-app\electron\book-package-app-win32-arm64
+$ 
+```
+
 
 
 ### Starting with "new" Ionic Web App
@@ -126,95 +192,3 @@ from https://capacitor.ionicframework.com/docs/getting-started/with-ionic:
   - in `electron/app/index.html`, remove the `<base href="/" />` tag
   - in `electron/package.json`, add a property `"homepage": "."`
 - started electron client with `npx cap open electron`
-
-
-## Demos
-
-I completed the getting started demo using the sample "tabs" app.
-
-Next I installed the sample "conference" app with `ionic start kitchenSink` and responded to the prompts to use a react app to use the "conference" app. This time I am going to try to use yarn exclusively. Thus:
-- remove/rename `package-lock.json`
-- run `yarn`; this command completely rebuilt the packages and created a `yarn.lock` file
-- run `yarn start`; this yielded a compile time error (a type problem).
-- restarted from scratch to see if ionic itself yielded the same error. No error... thus use of 'yarn' is questionable.
-- the preceding also means we may not be able to deploy without an Ionic license.
-
-## Getting Started Notes
-
-Followed steps found here: 
-https://ionicframework.com/blog/announcing-ionic-react/
-
-Commands run to create the sample app:
-```
-npm i -g ionic
-ionic start my-react-app
-```
-
-Once built, change to the directory `my-react-app` and run `ionic serve`.
-
-Ionic apps are served from `localhost:8100`.
-
-## Ionic Command Help 
-
-Note that a number of the features are paid. Probably their revenue model.
-
-```sh
-$ ionic
-
-
-   _             _
-  (_) ___  _ __ (_) ___
-  | |/ _ \| '_ \| |/ __|
-  | | (_) | | | | | (__
-  |_|\___/|_| |_|_|\___| CLI 5.4.16
-
-
-  Usage:
-
-    $ ionic <command> [<args>] [--help] [--verbose] [--quiet] [--no-interactive] [--no-color] [--confirm] [options]        
-
-  Global Commands:
-
-    completion ...................... (experimental) Enables tab-completion for Ionic CLI commands.
-    config <subcommand> ............. Manage CLI and project config values (subcommands: get, set, unset)
-    docs ............................ Open the Ionic documentation website
-    info ............................ Print project, system, and environment information
-    init ............................ (beta) Initialize existing projects with Ionic
-    login ........................... Log in to Ionic
-    logout .......................... Log out of Ionic
-    signup .......................... Create an Ionic account
-    ssh <subcommand> ................ Commands for configuring SSH keys (subcommands: add, delete, generate, list,
-                                      setup, use)
-    start ........................... Create a new project
-
-  Project Commands:
-
-    build ........................... Build web assets and prepare your app for any platform targets
-    capacitor <subcommand> .......... Capacitor functionality (subcommands: add, copy, open, run, sync, update) (alias:    
-                                      cap)
-    cordova <subcommand> ............ Cordova functionality (subcommands: build, compile, emulate, platform, plugin,       
-                                      prepare, requirements, resources, run)
-    deploy <subcommand> ............. (paid) Appflow Deploy functionality (subcommands: add, build)
-    doctor <subcommand> ............. Commands for checking the health of your Ionic project (subcommands: check, list,    
-                                      treat)
-    enterprise <subcommand> ......... (paid) Manage Ionic Enterprise features (subcommands: register)
-    git <subcommand> ................ Commands relating to git (subcommands: remote)
-    integrations <subcommand> ....... Manage various integrations in your app (subcommands: disable, enable, list)
-                                      (alias: i)
-    link ............................ Connect local apps to Ionic
-    package <subcommand> ............ (paid) Appflow package functionality (subcommands: build)
-    repair .......................... Remove and recreate dependencies and generated files
-    serve ........................... Start a local dev server for app dev/testing (alias: s)
-    ssl <subcommand> ................ (experimental) Commands for managing SSL keys & certificates (subcommands:
-                                      generate)
-```
-
-Also this on Appflow function:
-```
- Ionic Appflow, the mobile DevOps solution by Ionic
-
-           Continuously build, deploy, and ship apps
-        Focus on building apps while we automate the rest
-
-        Learn more: https://ion.link/appflow
-```
